@@ -30,7 +30,7 @@ var roleRepairer = {
         //creep.say(creep.memory.repairing);
         if(creep.memory.repairing && creep.carry.energy == 0) {
             creep.memory.repairing = false;
-            creep.say('🔄');
+            creep.emote('[refreshing]');
         }
         if(!creep.memory.repairing && creep.carry.energy == creep.carryCapacity) {
             creep.memory.repairing = true;

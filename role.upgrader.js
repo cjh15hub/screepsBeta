@@ -42,11 +42,11 @@ var roleUpgrader = {
         
         if(creep.memory.upgrading && creep.carry.energy == 0) {
             creep.memory.upgrading = false;
-            creep.say('🔄');
+            creep.emote('[refreshing]');
         }
         if(!creep.memory.upgrading && creep.carry.energy == creep.carryCapacity) {
             creep.memory.upgrading = true;
-            creep.say('⚡');
+            creep.emote('[upgrading]');
         }
 
         if(creep.memory.upgrading) {

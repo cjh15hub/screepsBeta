@@ -60,11 +60,11 @@ var roleStealUpgrader = {
         
         if(creep.memory.upgrading && creep.carry.energy == 0) {
             creep.memory.upgrading = false;
-            creep.say('🔄 harvest');
+            creep.emote('[refreshing]');
         }
         if(!creep.memory.upgrading && creep.carry.energy == creep.carryCapacity) {
             creep.memory.upgrading = true;
-            creep.say('⚡ upgrade');
+            creep.emote('[upgrading]');
         }
 
         if(creep.memory.upgrading) {

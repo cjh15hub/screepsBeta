@@ -32,11 +32,11 @@ var roleBuilder = {
         let _sourceTarget = creep.memory['sourceTarget']!= 0 && creep.memory['sourceTarget']!= 1 ? 1 : creep.memory['sourceTarget'];
         if(creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
-            creep.say('🔄');
+            creep.emote('[refreshing]');
         }
         if(!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
             creep.memory.building = true;
-            creep.say('🚧');
+            creep.emote('[building]');
         }
 
 
@@ -73,7 +73,7 @@ var roleBuilder = {
                 creep.tryBuild(target);
             }
             else{
-                creep.say('R?');
+                //creep.say('R?');
                 target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                     filter: structure => (structure.hits / structure.hitsMax < .7) && structure.structureType != STRUCTURE_WALL && structure.structureType != STRUCTURE_RAMPART
                 });
@@ -123,7 +123,7 @@ var roleBuilder = {
             }
         } // End of building
         else {
-            creep.say('🔄');
+            creep.emote('[refreshing]');
             let containersExist = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                 filter: structure => structure.structureType == STRUCTURE_CONTAINER
             });

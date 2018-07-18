@@ -27,7 +27,7 @@ var roleRemoteHarvester = {
         //creep.say(Game.flags[creep.memory.remoteRoom].room.name);
         //creep.say(creep.room.name != Game.flags[creep.memory.remoteRoom].name);
         if(!Game.flags[creep.memory.remoteRoom].room || creep.room.name != Game.flags[creep.memory.remoteRoom].room.name){
-            creep.say('🚲');
+            creep.emote('[traveling]');
             // if(!creep.memory['reachedW']){
             //     creep.moveTo(Game.flags['W'], {visualizePathStyle: {stroke: pathColor}});
             // }
