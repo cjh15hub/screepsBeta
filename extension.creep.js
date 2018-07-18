@@ -119,7 +119,12 @@ Creep.prototype.tryWithdrawEnergy = function(site){
 Creep.prototype.emote = function(message){
     if(message){
         if(message.charAt(0) === '[' && message.charAt(message.length-1) === ']'){
-            message = '<' + message.subString(0, message.length-1) + '>';
+            let key =  message.substring(1, message.length-2);
+            let val = utilEmotes[key];
+            
+            if(val){
+                message = val;
+            }
         }
     }
     else{
