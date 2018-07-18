@@ -10,7 +10,7 @@ var roleStealer = {
 
 
     run: function(creep){
-        creep.say('💰');
+        creep.emote();
         let pathColor = creep.memory.pathColor || '#ffffff';
         
         // if(!creep.memory['reachedW']){

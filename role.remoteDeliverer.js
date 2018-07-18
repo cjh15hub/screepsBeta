@@ -14,7 +14,7 @@ var roleRemoteTransporter = {
 
 
     run: function(creep){
-        creep.say('🍕');
+        creep.emote();
         let pathColor = creep.memory.pathColor || '#ffffff';
         
         let percent = creep.carry.energy / creep.carryCapacity;

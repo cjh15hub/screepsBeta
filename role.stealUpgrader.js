@@ -41,7 +41,7 @@ var roleStealUpgrader = {
     
     behavior: function(creep){
         let pathColor = creep.memory.pathColor || '#ffffff';
-        creep.say('🔺');
+        creep.emote();
         
         
         if(creep.room.name != Game.flags['Claim'].room.name){

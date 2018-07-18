@@ -114,6 +114,8 @@ Creep.prototype.tryWithdrawEnergy = function(site){
     return status;
 }
 
-
+Creep.prototype.emote = function(message){
+    return this.say(this.memory.roleEmote + (message ? message : ''));
+}
 
 module.exports = extensionCreep;

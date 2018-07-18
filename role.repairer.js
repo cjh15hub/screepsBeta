@@ -24,7 +24,7 @@ var roleRepairer = {
     
     behavior : function(creep){
         let pathColor = creep.memory.pathColor || '#ffffff';
-        creep.say('🔧️');
+        creep.emote();
         
         let _sourceTarget = 1;//creep.memory['sourceTarget'] || 0;
         //creep.say(creep.memory.repairing);

@@ -18,7 +18,7 @@ var roleRemoteHarvester = {
     run: function(creep) {
         let pathColor = creep.memory.pathColor || '#ffffff';
         
-        creep.say('🛰️⛏️');
+        creep.emote();
         
         let _sourceTarget = creep.memory['sourceTarget'];
         let remoteRoom = creep.memory['remoteRoom'];

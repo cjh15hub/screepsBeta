@@ -18,7 +18,7 @@ var roleGraveRobber = {
 
     run: function(creep){
         let pathColor = creep.memory.pathColor || '#ffffff';
-        creep.say('👻');
+        creep.emote();
         
         if( (Object.keys(creep.carry).length > 1)){
             // has mineral

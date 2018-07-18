@@ -26,7 +26,7 @@ var roleBuilder = {
     },
     
     behavior : function(creep){
-        creep.say('🏗️');
+        creep.emote();
         let pathColor = creep.memory.pathColor || '#ffffff';
         
         let _sourceTarget = creep.memory['sourceTarget']!= 0 && creep.memory['sourceTarget']!= 1 ? 1 : creep.memory['sourceTarget'];

@@ -8,7 +8,7 @@ require('utils');
 
 
 module.exports.loop = function () {
-    //console.log( XPARTS( MOVE, XWORK(2), XCARRY(2), XMOVE(3)) );
+    console.log( XPARTS( MOVE, XWORK(2), XCARRY(2), XMOVE(3)) );
     //left overs /////////////////////
 
     ////////////////////////////////

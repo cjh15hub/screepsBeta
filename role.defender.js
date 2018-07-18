@@ -12,7 +12,7 @@ var roledefender = {
     run: function(creep){
         let pathColor = creep.memory.pathColor || '#ffffff';
         creep.memory.isAggressive = true;
-        creep.say('👮');
+        creep.emote();
         
         let target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         

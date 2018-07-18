@@ -22,7 +22,7 @@ var roleTransporter = {
 
 
     run: function(creep){
-        creep.say('🚎');
+        creep.emote();
         let pathColor = creep.memory.pathColor || '#ffffff';
         
         

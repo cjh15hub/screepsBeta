@@ -15,7 +15,7 @@ var roleDistraction = {
         //creep.memory['reachedW'] = true;
         //console.log('drainer run');
         
-        creep.say('😎 Hello');
+        creep.emote();
         
         creep.moveTo(Game.flags['D']);
         // if(!creep.memory['reachedW']){

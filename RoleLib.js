@@ -54,102 +54,122 @@ let RoleLib = {
         'harvester' : {
             behavior : roleHarvester,
             name: RoleNames.HARVESTER,
-            pathColor: '#ffffff'
+            pathColor: '#ffffff',
+            roleEmote: '⛏️'
         },
         'upgrader' : {
             behavior : roleUpgrader,
             name: RoleNames.UPGRADER,
-            pathColor: '#ffaa00'
+            pathColor: '#ffaa00',
+            roleEmote: '🔺'
         },
         'builder' : {
             behavior : roleBuilder,
             name: RoleNames.BUILDER,
-            pathColor: '#ffaa00'
+            pathColor: '#ffaa00',
+            roleEmote: '🏗️'
         },
         'graveRobber' : {
             behavior : roleGraveRobber,
             name: RoleNames.GRAVE_ROBBER,
-            pathColor: '#32CD32'
+            pathColor: '#32CD32',
+            roleEmote: '👻'
         },
         'repairer' : {
             behavior : roleRepairer,
             name: RoleNames.REPAIRER,
-            pathColor: '#ffaa00'
+            pathColor: '#ffaa00',
+            roleEmote: '🔧️'
         },
         'transporter' : {
             behavior : roleTransporter,
             name: RoleNames.TRANSPORTER,
-            pathColor: '#0055ff'
+            pathColor: '#0055ff',
+            roleEmote: '🚎'
         },
         'defender' : {
             behavior : roleDefender,
             name: RoleNames.DEFENDER,
-            pathColor: '#ff5500'
+            pathColor: '#ff5500',
+            roleEmote: '👮'
         },
         'melee' : {
             behavior : roleMelee,
             name: RoleNames.MELEE,
-            pathColor: '#ff5500'
+            pathColor: '#ff5500',
+            roleEmote: '--|=====>'
         },
         'healDrainer' : {
             behavior : roleHealDrainer,
             name: RoleNames.HEAL_DRAINER,
-            pathColor: '#ffffff'
+            pathColor: '#ffffff',
+            roleEmote: '[]'
         },
         'claimer' : {
             behavior : roleClaimer,
             name: RoleNames.CLAIMER,
-            pathColor: '#ff0088'
+            pathColor: '#ff0088',
+            roleEmote: 'C'
         },
         'stealer': {
             behavior : roleStealer,
             name : RoleNames.STEALER,
-            pathColor: '#ffffff'
+            pathColor: '#ffffff',
+            roleEmote: '💰'
         },
         'stealUpgrader': {
             behavior : roleStealUpgrader,
             name : RoleNames.STEAL_UUPGRADER,
-            pathColor: '#ff0088'
+            pathColor: '#ff0088',
+            roleEmote: '🔺'
         },
         'alakbar': {
             behavior : roleAlakbar,
             name : 'alakabar',
-            pathColor: '#ff5500'
+            pathColor: '#ff5500',
+            roleEmote: '💣'
         },
         'remoteHarvester': {
             behavior : roleRemoteHarvester,
             name : RoleNames.REMOTE_HARVESTER,
-            pathColor: '#dd00ff'
+            pathColor: '#dd00ff',
+            roleEmote: '🛰️⛏️'
         },
         'remoteDeliverer': {
             behavior : roleRemoteDeliverer,
             name : RoleNames.REMOTE_DELIVERER,
-            pathColor: '#0055ff'
+            pathColor: '#0055ff',
+            roleEmote: '🍕'
         },
         'remoteBuilder': {
             behavior : roleRemoteBuilder,
             name : RoleNames.REMOTE_BUILDER,
-            pathColor: '#ffaa00'
+            pathColor: '#ffaa00',
+            roleEmote: ''
         },
         'remoteRepairer': {
             behavior : roleRemoteRepairer,
             name : RoleNames.REMOTE_REPAIRER,
-            pathColor: '#ffaa00'
+            pathColor: '#ffaa00',
+            roleEmote: '🛰️🔧'
         },
         'distraction': {
             behavior : roleDistraction,
             name : RoleNames.DISTRACTION,
-            pathColor: '#ffffff'
+            pathColor: '#ffffff',
+            roleEmote: '<>'
         },
         'reserver': {
             behavior : roleReserver,
             name : RoleNames.RESERVER,
-            pathColor: '#ffaa00'
+            pathColor: '#ffaa00',
+            roleEmote: '💡'
         },
         'xbuilder': {
             behavior : roleXBuilder,
             name : RoleNames.XBUILDER,
-            pathColor: '#00ffff'
+            pathColor: '#00ffff',
+            roleEmote: 'X🏗️'
         }
         // 'newRole' : {
         //     behavior : newRole,
@@ -171,6 +191,8 @@ let RoleLib = {
                 _memory.role = _role.name;
                 _memory.pathColor = _role.pathColor;
                 _memory.birthPlace = spawnName; 
+                
+                _memory.roleEmote = _role.roleEmote || '??';
                 
                 let random = Math.random() * Math.floor(100);
                 let toBeNamed = `${_role.name}-${random}`;

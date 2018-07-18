@@ -36,7 +36,7 @@ var roleUpgrader = {
     
     behavior: function(creep){
         let pathColor = creep.memory.pathColor || '#ffffff';
-        creep.say('🔺');
+        creep.emote();
         
         //return;
         
