@@ -28,7 +28,7 @@ var roleHarvester = {
     /** @param {Creep} creep **/
     run: function(creep) {
         creep.memory.isAggressive = true;
-        creep.say('⛏️');
+        creep.emote('Mining');
         
         let _sourceTarget = creep.memory['sourceTarget'];
         

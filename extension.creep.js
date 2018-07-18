@@ -1,3 +1,5 @@
+const utilEmotes = require('util.emotes');
+
 var extensionCreep = {
     
 };
@@ -115,7 +117,16 @@ Creep.prototype.tryWithdrawEnergy = function(site){
 }
 
 Creep.prototype.emote = function(message){
-    return this.say(this.memory.roleEmote + (message ? message : ''));
+    if(message){
+        if(message.charAt(0) === '[' && message.charAt(message.length-1) === ']'){
+            message = '<' + message.subString(0, message.length-1) + '>';
+        }
+    }
+    else{
+        message = '';
+    }
+
+    return this.say(this.memory.roleEmote + message);
 }
 
 module.exports = extensionCreep;
