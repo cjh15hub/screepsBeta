@@ -1,66 +1,64 @@
-var roleTransporter = {
+var roleRemoteTransporter = {
 
     BluePrints: {
-        MaxLevel: 3,
+        MaxLevel: 2,
         LVL1: {
-            Parts : [CARRY, CARRY, MOVE, MOVE],
-            Cost : 200
-        },
-        LVL2: {
             Parts : [CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
             Cost : 300
         },
-        LVL3: {
+        LVL2: {
             Parts : [CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE],
             Cost : 400
-        },
-        LVL4: {
-            Parts : [CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE],
-            Cost : 600
-        },
+        }
     },
 
 
     run: function(creep){
-        creep.say('🚎');
+        creep.say('🍕');
         let pathColor = creep.memory.pathColor || '#ffffff';
-        
         
         let percent = creep.carry.energy / creep.carryCapacity;
         
         if(creep.memory.delivering && creep.carry.energy == 0){
             creep.memory.delivering = false;
         }
-        if(!creep.memory.delivering && percent > .5 ){
+        if(!creep.memory.delivering && creep.carry.energy == creep.carryCapacity ){
             creep.memory.delivering = true;
         }
         
+        let _sourceTarget = creep.memory['sourceTarget'];
+        let remoteRoom = creep.memory['remoteRoom'];
+        
+        let isInRemoteRoom = null;
+        if(!Game.flags[creep.memory.remoteRoom].room || creep.room.name != Game.flags[creep.memory.remoteRoom].room.name){
+            isInRemoteRoom = false;
+        }
+        else{
+            isInRemoteRoom = true;
+        }
+        
+        //creep.say(isInRemoteRoom + ' ' + creep.memory.delivering);
         
         //console.log(percent);
         if(creep.memory.delivering){
             // find primary store locations
-            var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-                    filter: (structure) => (structure.structureType == STRUCTURE_SPAWN ||
-                                structure.structureType == STRUCTURE_EXTENSION ||
-                                structure.structureType == STRUCTURE_TOWER) && 
-                                structure.energy < structure.energyCapacity
-            });
+            if(isInRemoteRoom){
+                let status = creep.moveTo(Game.flags[creep.memory.birthPlace], {visualizePathStyle: {stroke: pathColor}});
+                //console.log(status);
+                return;
+            }
             
-            if(!target){
-                //console.log('all full');
-                target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                    filter: structure => {
-                        return (structure.structureType == STRUCTURE_LINK && structure.energy < structure.energyCapacity)
+            let target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+                    filter: structure => 
+                        (structure.structureType == STRUCTURE_LINK && structure.energy < structure.energyCapacity)
                         ||
                         (structure.structureType == STRUCTURE_CONTAINER
                         && structure.store[RESOURCE_ENERGY] < structure.storeCapacity
                         && Memory.rooms[creep.memory.birthPlace].stationContainerIds.includes(structure.id)
                         //DISTANCE(structure.pos, Game.spawns['MotherLand'].pos) > 10
-                        );
-                    }
-                });
-                //console.log(target);
-            }
+                        )
+                    
+            });
             
             if(!target){
                 target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
@@ -75,12 +73,16 @@ var roleTransporter = {
         }
         else{
             // no loot
-            const pennyTheory = creep.carryCapacity * .666;
-
+            if(!isInRemoteRoom){
+                creep.moveTo(Game.flags[creep.memory.remoteRoom], {visualizePathStyle: {stroke: pathColor}});
+                return;
+            }
+            
             let droppedResource = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES, {
-                filter: dropped => dropped.energy > pennyTheory && dropped.resourtType == RESOURCE_ENERGY
+                filter: dropped => dropped.resourceType == RESOURCE_ENERGY
             });
             
+            //console.log('rt dropped resource ' + droppedResource);
             
             if(droppedResource){
                 let status = creep.pickup(droppedResource);
@@ -93,11 +95,13 @@ var roleTransporter = {
                 let target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return structure.structureType == STRUCTURE_CONTAINER 
-                        && structure.store[RESOURCE_ENERGY] > 35 
-                        && Memory.rooms[creep.memory.birthPlace].dropContainerIds.includes(structure.id)
+                        && structure.store[RESOURCE_ENERGY] > 0 
+                        && Memory.remoteRooms[creep.memory.remoteRoom].dropContainerIds.includes(structure.id)
                         //&& DISTANCE(structure.pos, Game.spawns['MotherLand'].pos) <= 10
                     }
                 });
+                 
+                //creep.say(Memory.remoteRooms[creep.memory.remoteRoom].dropContainerIds);
                     
                 if(target){
                     creep.tryWithdrawEnergy(target);
@@ -110,4 +114,4 @@ var roleTransporter = {
     
 };
 
-module.exports = roleTransporter;
+module.exports = roleRemoteTransporter;
