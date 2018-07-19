@@ -37,7 +37,7 @@ var roleRemoteTransporter = {
             isInRemoteRoom = true;
         }
         
-        //creep.say(isInRemoteRoom + ' ' + creep.memory.delivering);
+        //creep.say(creep.memory.delivering);
         
         //console.log(percent);
         if(creep.memory.delivering){
@@ -65,6 +65,8 @@ var roleRemoteTransporter = {
                     filter: structure => structure.structureType == STRUCTURE_STORAGE
                 });
             }
+            
+            //console.log(target);
             
             if(target){
                 let status = creep.tryDepositEnergy(target);
@@ -105,6 +107,9 @@ var roleRemoteTransporter = {
                     
                 if(target){
                     creep.tryWithdrawEnergy(target);
+                }
+                else{
+                    creep.moveTo(Game.flags[creep.memory.remoteRoom], {visualizePathStyle: {stroke: pathColor }});
                 }
             }
             

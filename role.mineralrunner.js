@@ -18,11 +18,17 @@ var roleMineralRunner = {
 
     run: function(creep){
         let pathColor = creep.memory.pathColor || '#ffffff';
-        creep.say('🚚');
+        creep.emote();
         
-        let storageExists = creep.room.find(FIND_STRUCTURES, {
-            filter: structure => structure.structureType == STRUCTURE_STORAGE
-        });
+        
+        // if(creep.memory.remoteRoom && (!Game.flags[creep.memory.remoteRoom].room || creep.room.name != Game.flags[creep.memory.remoteRoom].room.name) ){
+        //     //console.log('remote');
+        //     //console.log(creep.memory.remoteRoom);
+        //     creep.moveTo(Game.flags[creep.memory.remoteRoom], {visualizePathStyle: {stroke: pathColor}});
+        //     return;
+        // }
+        
+        
         
         //console.log(creep.name +  ' storage found: ' + storageExists);
         let delivering = false;
@@ -31,7 +37,7 @@ var roleMineralRunner = {
             delivering = true;
         }
         else{
-            delivering = true;
+            delivering = false;
         }
         
         if(delivering){
@@ -50,6 +56,21 @@ var roleMineralRunner = {
                 if(creep.pickup(droppedResource) == ERR_NOT_IN_RANGE){
                     creep.moveTo(droppedResource, {visualizePathStyle: {stroke: pathColor}});
                 }
+            }
+            else{
+                let container = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+                    filter: structure => structure.structureType == STRUCTURE_CONTAINER && _.sum(structure.store) > 0 && structure.store.energy == 0
+                });
+                
+                if(container){
+                    let key = Object.keys(container.store)[1];
+                    //console.log(Object.keys(container.store));
+                    let status = creep.withdraw(container, key);
+                    if(status == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(container, {visualizePathStyle: {stroke: pathColor}});
+                    }
+                }
+                
             }
         }
         

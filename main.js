@@ -39,7 +39,7 @@ module.exports.loop = function () {
             
         }
     }
-
+    
 
     //Room specific code low priority   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -112,6 +112,11 @@ module.exports.loop = function () {
                 roomRemoteRoomCount[remoteRoomName] = CountCheck(availableRoles);
             }
             
+            if(roomRemoteRoomCount[remoteRoomName].remoteUpgrader < remoteRoomREQ.remoteUpgrader){
+                //console.log('need builder role: ' + RoleLib.RoleNames.REMOTE_BUILDER);
+                let status = RoleLib.spawn(remoteRoom.spawnName, RoleLib.RoleNames.REMOTE_UPGRADER, {remoteRoom: remoteRoomName });
+            }
+            
             if(roomRemoteRoomCount[remoteRoomName].defender < remoteRoomREQ.defender){
                 //console.log('need builder role: ' + RoleLib.RoleNames.DEFENDER);
                 let status = RoleLib.spawn(remoteRoom.spawnName, RoleLib.RoleNames.DEFENDER, {remoteRoom: remoteRoomName, post: remoteRoomName });
@@ -156,6 +161,15 @@ module.exports.loop = function () {
         
         if(countChecker.stealer < UnitRequirements.stealer){
             let status = RoleLib.spawn(room.spawnName, RoleLib.RoleNames.STEALER);
+        }
+        
+        let target = Game.spawns[room.spawnName].room.find(FIND_MINERALS)[0];
+        if(countChecker.mineralMiner < UnitRequirements.mineralMiner){
+            let status = RoleLib.spawn(room.spawnName, RoleLib.RoleNames.MINERAL_MINER, { sourceTarget: target  });
+        }
+        
+        if(countChecker.mineralRunner < UnitRequirements.mineralRunner){
+            let status = RoleLib.spawn(room.spawnName, RoleLib.RoleNames.MINERAL_RUNNER, { sourceTarget: target  });
         }
         
         if(countChecker.repairer < UnitRequirements.repairer){
@@ -266,12 +280,14 @@ module.exports.loop = function () {
         originLink.transferEnergy(destLink);
     }
 
-    //originLink = Game.getObjectById('ddddddddd');
-    destLine = Game.getObjectById('5b4f75528087f443459eace5');
+    originLink = Game.getObjectById('5b4f9e2f1fde535e697029bd');
+    destLink = Game.getObjectById('5b4f75528087f443459eace5');
     
-    // if(originLink && originLink.energy == originLink.energyCapacity && destLink.energy == 0){
-    //     originLink.transferEnergy(destLink);
-    // }
+    let s;
+    
+    if(originLink && originLink.energy == originLink.energyCapacity && destLink.energy == 0){
+        s = originLink.transferEnergy(destLink);
+    }
 
 
     // let closeHarvesters = Game.spawns['MotherLand'].room.find(FIND_MY_CREEPS, {
@@ -296,7 +312,11 @@ DISTANCE = function(p1, p2){
 }
 
 TEST = function(){
-    
+    for(let c in Game.creeps){
+        let creep = Game.creeps[c];
+        
+        creep.memory.roleEmote = RoleLib.Roles[creep.memory.role].roleEmote;
+    }
 }
 
 CreationCapacity = function(Spawn){

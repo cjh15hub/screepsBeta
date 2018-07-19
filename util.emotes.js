@@ -3,7 +3,8 @@ var emotes = {
     'building': '🚧',
     'traveling': '🚲',
     'upgrading': '⚡',
-    'xbuilding': 'X🚧'
+    'xbuilding': 'X🚧',
+    'alakbaring': '💣'
 };
 
 module.exports = emotes;

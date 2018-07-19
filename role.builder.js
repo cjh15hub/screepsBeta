@@ -42,9 +42,14 @@ var roleBuilder = {
 
         if(creep.memory.building) {
             let target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
-                filter: site => site.structureType == STRUCTURE_TOWER
+                filter: site => site.structureType == STRUCTURE_SPAWN
             });
             //console.log(target);
+            if(!target){
+                target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+                    filter: site => site.structureType == STRUCTURE_TOWER
+                });
+            }
             
             if(!target){
                 target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
@@ -65,12 +70,19 @@ var roleBuilder = {
             }
             
             if(!target){
+                target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+                    filter: site => site.structureType == STRUCTURE_CONTAINER
+                });
+            }
+            
+            if(!target){
                 target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
             }
             
             if(target) {
                 creep.moveTo(target);
                 creep.tryBuild(target);
+                creep.memory['sourceFound'] = null;
             }
             else{
                 //creep.say('R?');
@@ -162,6 +174,7 @@ var roleBuilder = {
                     }
                     else{
                         let sources = creep.room.find(FIND_SOURCES_ACTIVE).sort((a,b) => (b.energy*1) - (a.energy*1));
+                        let sourceTarget
                         //console.log(creep.name + ' : ' + sources);
                         if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
                             creep.moveTo(sources[0], {visualizePathStyle: {stroke: pathColor}});
@@ -171,9 +184,15 @@ var roleBuilder = {
                 
             }
             else{
-                let sources = creep.room.find(FIND_SOURCES_ACTIVE).sort((a,b) => (b.energy*1) - (a.energy*1));
-                if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(sources[0], {visualizePathStyle: {stroke: pathColor}});
+                let sourceFound =  creep.memory['sourceFound'];
+                if(!sourceFound){
+                    let sources = creep.room.find(FIND_SOURCES_ACTIVE).sort((a,b) => (b.energy*1) - (a.energy*1));
+                    sourceFound = sources[0].id;
+                    creep.memory.sourceFound = sourceFound;
+                }
+                
+                if(creep.harvest(Game.getObjectById(sourceFound)) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(Game.getObjectById(sourceFound), {visualizePathStyle: {stroke: pathColor}});
                 }
             }
             

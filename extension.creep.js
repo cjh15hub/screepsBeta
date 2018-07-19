@@ -42,7 +42,7 @@ Creep.prototype.isDangerous = function(){
 
 Creep.prototype.runAway = function(){
     if(!this.memory.isAggresive){
-        this.say('😨');
+        this.say('ð¨');
         let target = this.room.find(FIND_STRUCTURES, {
             filter: structure => structure.structureType == STRUCTURE_SPAWN
         })[0];
@@ -101,7 +101,7 @@ Creep.prototype.tryDepositMinerals = function(site){
         this.moveTo(site, {visualizePathStyle: {stroke: pathColor}});
     }
     else{
-        console.log('try deposit mineral status ' + status);
+        console.log(this.name + ' try deposit mineral status ' + status);
     }
     return status;
 }
@@ -119,7 +119,7 @@ Creep.prototype.tryWithdrawEnergy = function(site){
 Creep.prototype.emote = function(message){
     if(message){
         if(message.charAt(0) === '[' && message.charAt(message.length-1) === ']'){
-            let key =  message.substring(1, message.length-2);
+            let key =  message.substring(1, message.length-1);
             let val = utilEmotes[key];
             
             if(val){
@@ -131,7 +131,7 @@ Creep.prototype.emote = function(message){
         message = '';
     }
 
-    return this.say(this.memory.roleEmote + message);
+    this.say(this.memory.roleEmote + message);
 }
 
 module.exports = extensionCreep;

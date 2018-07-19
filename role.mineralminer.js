@@ -1,18 +1,22 @@
 var roleMineralMiner = {
 
     BluePrints: {
-        MaxLevel: 1,
+        MaxLevel: 2,
         LVL1: {
             Parts : [WORK, WORK, WORK, WORK, MOVE, MOVE],
             Cost: 500
-        }
+        },
+        LVL2: {
+            Parts : [WORK, WORK, WORK, WORK, WORK, MOVE, MOVE],
+            Cost: 600
+        },
     },
 
 
     /** @param {Creep} creep **/
     run: function(creep) {
         creep.memory.isAggressive = true;
-        creep.say('💎');
+        creep.emote();
         
         let sourceTarget = creep.memory['sourceTarget'];
         

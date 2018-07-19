@@ -5,17 +5,21 @@ var roleGraveRobber = require('role.graverobber');
 var roleRepairer = require('role.repairer');
 var roleTransporter = require('role.transporter');
 var roleDefender = require('role.defender');
+var roleClaimer = require('role.claimer');
+var roleMineralMiner = require('role.mineralminer');
+var roleMineralRunner = require('role.mineralrunner');
 
 var roleHealDrainer = require('role.healdrainer');
 var roleMelee = require('role.melee');
 var roleStealer = require('role.stealer');
-var roleClaimer = require('role.claimer');
 var roleStealUpgrader = require('role.stealUpgrader');
+var roleDistraction = require('role.distraction');
+
 var roleRemoteHarvester = require('role.remoteHarvester');
 var roleRemoteDeliverer = require('role.remoteDeliverer');
 var roleRemoteBuilder = require('role.remoteBuilder');
 var roleRemoteRepairer = require('role.remoteRepairer');
-var roleDistraction = require('role.distraction');
+var roleRemoteUpgrader = require('role.remoteUpgrader');
 var roleReserver = require('role.reserver');
 var roleXBuilder = require('role.xbuilder');
 
@@ -40,9 +44,12 @@ const RoleNames = {
     REMOTE_DELIVERER: 'remoteDeliverer',
     REMOTE_BUILDER: 'remoteBuilder',
     REMOTE_REPAIRER: 'remoteRepairer',
+    REMOTE_UPGRADER: 'remoteUpgrader',
     DISTRACTION: 'distraction',
     RESERVER: 'reserver',
-    XBUILDER: 'xbuilder'
+    XBUILDER: 'xbuilder',
+    MINERAL_MINER: 'mineralMiner',
+    MINERAL_RUNNER: 'mineralRunner'
     //NEWROLE: 'newRole'
 }
 
@@ -153,6 +160,12 @@ let RoleLib = {
             pathColor: '#ffaa00',
             roleEmote: '🛰️🔧'
         },
+        'remoteUpgrader': {
+            behavior : roleRemoteUpgrader,
+            name : RoleNames.REMOTE_UPGRADER,
+            pathColor: '#ffaa00',
+            roleEmote: '🛰️🔺'
+        },
         'distraction': {
             behavior : roleDistraction,
             name : RoleNames.DISTRACTION,
@@ -170,7 +183,19 @@ let RoleLib = {
             name : RoleNames.XBUILDER,
             pathColor: '#00ffff',
             roleEmote: 'X🏗️'
-        }
+        },
+        'mineralMiner': {
+            behavior : roleMineralMiner,
+            name : RoleNames.MINERAL_MINER,
+            pathColor: '#ffffff',
+            roleEmote: '💎️'
+        },
+        'mineralRunner': {
+            behavior : roleMineralRunner,
+            name : RoleNames.MINERAL_RUNNER,
+            pathColor: '#00ffff',
+            roleEmote: '🚚️'
+        },
         // 'newRole' : {
         //     behavior : newRole,
         //     name : RoleNames.NEWROLE,
@@ -272,7 +297,7 @@ SPAWN_STEALUPGRADER = function(){
 
 
 SPAWN_CLAIMER = function(){
-    let status = RoleLib.spawn('MotherLand', RoleLib.RoleNames.CLAIMER);
+    let status = RoleLib.spawn('Steal', RoleLib.RoleNames.CLAIMER);
     console.log(status);
     return status;
 }
@@ -322,6 +347,12 @@ SPAWN_REMOTEDELIVERER = function(){
 
 SPAWN_XBUILDER = function(){
     let status = RoleLib.spawn('MotherLand', RoleLib.RoleNames.XBUILDER);
+    console.log(status);
+    return status;
+}
+
+SPAWN_MINERALRUNNER = function(){
+    let status = RoleLib.spawn('MotherLand', RoleLib.RoleNames.MINERAL_RUNNER);
     console.log(status);
     return status;
 }

@@ -27,11 +27,16 @@ var roleClaimer = {
         
         //if(creep.memory['reachedW']){
             
-           if(creep.room.name == Game.flags['Claim'].room.name){
+            //console.log(creep.room);
+            
+           if( Game.flags['Claim'].room && creep.room.name == Game.flags['Claim'].room.name){
                 let status = creep.claimController(creep.room.controller);
                 //console.log(status);
                 if(status == ERR_NOT_IN_RANGE) {
                     creep.moveTo(creep.room.controller, {visualizePathStyle: {stroke: pathColor }});
+                }
+                else if(status == 0){
+                    creep.memory.role = 'upgrader';
                 }
                 
             }

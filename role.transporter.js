@@ -1,3 +1,5 @@
+
+
 var roleTransporter = {
 
     BluePrints: {
@@ -66,6 +68,8 @@ var roleTransporter = {
                 target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                     filter: structure => structure.structureType == STRUCTURE_STORAGE
                 });
+                Game.notify('Transporter found everything to be full. Storage time.');
+                
             }
             
             if(target){
@@ -78,7 +82,7 @@ var roleTransporter = {
             const pennyTheory = creep.carryCapacity * .666;
 
             let droppedResource = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES, {
-                filter: dropped => dropped.energy > pennyTheory && dropped.resourtType == RESOURCE_ENERGY
+                filter: dropped => dropped.energy > pennyTheory && dropped.resourceType == RESOURCE_ENERGY
             });
             
             

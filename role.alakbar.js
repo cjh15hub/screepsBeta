@@ -10,7 +10,7 @@ var roleAlakbar = {
 
 
     run: function(creep){
-        creep.emote();
+        creep.emote('[alakbaring]');
         
         let spawn = Game.getObjectById(Memory.rooms[creep.memory.birthPlace].spawnId);
         
